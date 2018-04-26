@@ -1,49 +1,94 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+
+const Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
-    res.status(200).json({
-        message : 'From Products get'
-    });
+    Product.find()
+        .exec()
+        .then(docs => {
+            console.log(docs);
+            res.status(200).json(docs);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
 });
 
 router.post('/', (req, res, next) => {
-    const product = {
+    const product = new Product({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
-    }
-    res.status(200).json({
-        message : 'From Products post',
-        createdProduct : product
+
     });
+
+    product
+        .save()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'From Products post',
+                createdProduct: result
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
+
 });
 
 router.get('/:id', (req, res, next) => {
     const id = req.params.id;
-    if (id === 'hi' ){
-        res.status(200).json({
-            message : 'you send this hi',
-            id : id
+    Product.findById(id)
+        .exec()
+        .then(doc => {
+            console.log(doc);
+            if (doc) {
+                res.status(200).json(doc);
+            }
+            else {
+                res.status(404).json({ message: "No data found" });
+            }
+
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
         });
-    }
-    else{
-        res.status(200).json({
-            message : 'you send this id ' + id
-        });
-    }
 });
 
 router.patch('/:id', (req, res, next) => {
     const id = req.params.id;
-    res.status(200).json({
-        message : 'Updated id '+ id
+    const updateOpts = {};
+    for(const opt of req.body){
+        updateOpts[opt.propName] = opt.value;
+    }
+    Product.update({ _id:id }, {$set:updateOpts })
+    .exec()
+    .then(result => {
+        console.log(result);
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
     });
 });
 
 router.delete('/:id', (req, res, next) => {
     const id = req.params.id;
-    res.status(200).json({
-        message : 'Deleted product '+ id
+    Product.remove({ _id:id })
+    .exec()
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
     });
 });
 
