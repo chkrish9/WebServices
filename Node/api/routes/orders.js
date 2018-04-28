@@ -8,6 +8,7 @@ const Product = require('../models/product');
 router.get('/', (req, res, next) => {
     Order.find()
         .select("productId quantity _id")
+        .populate("product", "name _id")
         .exec()
         .then(docs => {
             // console.log(docs);
@@ -15,7 +16,7 @@ router.get('/', (req, res, next) => {
                 count: docs.length,
                 orders: docs.map(doc => {
                     return {
-                        productId: doc.productId,
+                        product: doc.product,
                         quantity: doc.quantity,
                         _id: doc._id,
                         request: {
@@ -43,7 +44,7 @@ router.post('/', (req, res, next) => {
             }
             const order = new Order({
                 _id: new mongoose.Types.ObjectId(),
-                productId: req.body.productId,
+                product: req.body.productId,
                 quantity: req.body.quantity
             });
             return order.save()
@@ -73,6 +74,7 @@ router.get('/:id', (req, res, next) => {
     const id = req.params.id;
     Order.findById(id)
         .select("productId quantity _id")
+        .populate("product")
         .exec()
         .then(doc => {
             //console.log(doc);
@@ -103,7 +105,7 @@ router.patch('/:id', (req, res, next) => {
     for (const opt of req.body) {
         updateOpts[opt.propName] = opt.value;
     }
-    if (updateOpts.productId != undefined) {
+    if (updateOpts.product != undefined) {
         Product.findById(req.body.productId)
             .then(product => {
                 if (!product) {
