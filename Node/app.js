@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const productApi = require('./api/routes/products');
 const orderApi = require('./api/routes/orders');
+const userApi = require('./api/routes/user');
 
 app.use(morgan('dev'));
 app.use('/uploads',express.static('uploads'));
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 app.use('/products', productApi);
 app.use('/orders', orderApi);
+app.use('/user', userApi);
 
 mongoose.connect('mongodb://node-api:'+ 
 process.env.MONGO_ATL_PW +
