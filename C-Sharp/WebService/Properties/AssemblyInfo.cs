@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="MKS">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <date>2018-4-30</date>
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following

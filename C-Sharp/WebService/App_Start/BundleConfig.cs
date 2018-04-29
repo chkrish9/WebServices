@@ -1,26 +1,25 @@
-﻿using System.Web.Optimization;
+﻿// <copyright file="BundleConfig.cs" company="MKS">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <date>2018-4-30</date>
 
 namespace WebService
 {
+    using System.Web.Optimization;
+
     /// <summary>
-    /// BundleConfig
+    /// Bundle Config
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1053:StaticHolderTypesShouldNotHaveConstructors")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1053:StaticHolderTypesShouldNotHaveConstructors", Justification = "MVC Application")]
     public class BundleConfig
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BundleConfig"/> class.
-        /// </summary>
-        public BundleConfig()
-        {
-        }
-
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+
         /// <summary>
         /// Registers the bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "MVC Application")]
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

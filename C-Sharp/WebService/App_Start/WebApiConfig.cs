@@ -1,26 +1,24 @@
-﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
-//FileName: WebApiConfig.cs
-//Author : Kite
-//Created On : 2018-3-24,
-//Last Modified On : 2018-4-29
-//Copy Rights : MKS
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-using System.Web.Http;
-using System.Web.Http.Cors;
+﻿// <copyright file="WebApiConfig.cs" company="MKS">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <date>2018-4-30</date>
 
 namespace WebService
 {
+    using System.Web.Http;
+    using System.Web.Http.Cors;
+
     /// <summary>
-    /// WebApiConfig
+    /// Web Api Config
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api", Justification = "MVC Application")]
     public static class WebApiConfig
     {
         /// <summary>
         /// Registers the specified configuration.
         /// </summary>
         /// <param name="config">The configuration.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "MVC Application")]
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
@@ -31,8 +29,7 @@ namespace WebService
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                defaults: new { id = RouteParameter.Optional });
 
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
