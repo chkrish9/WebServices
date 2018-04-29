@@ -5,6 +5,10 @@ using System.Web.Http.Description;
 
 namespace WebService.Areas.HelpPage
 {
+    /// <summary>
+    /// Api Description Extensions
+    /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
     public static class ApiDescriptionExtensions
     {
         /// <summary>
@@ -12,6 +16,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="description">The <see cref="ApiDescription"/>.</param>
         /// <returns>The ID as a string.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static string GetFriendlyId(this ApiDescription description)
         {
             string path = description.RelativePath;

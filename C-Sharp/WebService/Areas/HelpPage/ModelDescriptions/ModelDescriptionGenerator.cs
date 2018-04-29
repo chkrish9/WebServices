@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ using System.Runtime.Serialization;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace WebService.Areas.HelpPage.ModelDescriptions
 {
@@ -86,6 +86,11 @@ namespace WebService.Areas.HelpPage.ModelDescriptions
 
         private Lazy<IModelDocumentationProvider> _documentationProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModelDescriptionGenerator"/> class.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <exception cref="ArgumentNullException">config</exception>
         public ModelDescriptionGenerator(HttpConfiguration config)
         {
             if (config == null)
@@ -97,6 +102,12 @@ namespace WebService.Areas.HelpPage.ModelDescriptions
             GeneratedModels = new Dictionary<string, ModelDescription>(StringComparer.OrdinalIgnoreCase);
         }
 
+        /// <summary>
+        /// Gets the generated models.
+        /// </summary>
+        /// <value>
+        /// The generated models.
+        /// </value>
         public Dictionary<string, ModelDescription> GeneratedModels { get; private set; }
 
         private IModelDocumentationProvider DocumentationProvider
@@ -107,6 +118,13 @@ namespace WebService.Areas.HelpPage.ModelDescriptions
             }
         }
 
+        /// <summary>
+        /// Gets the or create model description.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">modelType</exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public ModelDescription GetOrCreateModelDescription(Type modelType)
         {
             if (modelType == null)

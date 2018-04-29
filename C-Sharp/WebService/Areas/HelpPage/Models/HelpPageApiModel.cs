@@ -9,6 +9,7 @@ namespace WebService.Areas.HelpPage.Models
     /// <summary>
     /// The model that represents an API displayed on the help page.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
     public class HelpPageApiModel
     {
         /// <summary>
@@ -25,6 +26,7 @@ namespace WebService.Areas.HelpPage.Models
         /// <summary>
         /// Gets or sets the <see cref="ApiDescription"/> that describes the API.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
         public ApiDescription ApiDescription { get; set; }
 
         /// <summary>

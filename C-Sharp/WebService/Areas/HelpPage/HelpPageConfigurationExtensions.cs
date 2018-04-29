@@ -16,6 +16,9 @@ using WebService.Areas.HelpPage.Models;
 
 namespace WebService.Areas.HelpPage
 {
+    /// <summary>
+    /// HelpPageConfigurationExtensions
+    /// </summary>
     public static class HelpPageConfigurationExtensions
     {
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";
@@ -25,6 +28,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
         /// <param name="documentationProvider">The documentation provider.</param>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static void SetDocumentationProvider(this HttpConfiguration config, IDocumentationProvider documentationProvider)
         {
             config.Services.Replace(typeof(IDocumentationProvider), documentationProvider);
@@ -176,6 +180,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
         /// <returns>The help page sample generator.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static HelpPageSampleGenerator GetHelpPageSampleGenerator(this HttpConfiguration config)
         {
             return (HelpPageSampleGenerator)config.Properties.GetOrAdd(
@@ -188,6 +193,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
         /// <param name="sampleGenerator">The help page sample generator.</param>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static void SetHelpPageSampleGenerator(this HttpConfiguration config, HelpPageSampleGenerator sampleGenerator)
         {
             config.Properties.AddOrUpdate(
@@ -201,6 +207,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <returns>The <see cref="ModelDescriptionGenerator"/></returns>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static ModelDescriptionGenerator GetModelDescriptionGenerator(this HttpConfiguration config)
         {
             return (ModelDescriptionGenerator)config.Properties.GetOrAdd(
@@ -216,6 +223,9 @@ namespace WebService.Areas.HelpPage
         /// <returns>
         /// An <see cref="HelpPageApiModel"/>
         /// </returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "api")]
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static HelpPageApiModel GetHelpPageApiModel(this HttpConfiguration config, string apiDescriptionId)
         {
             object model;
@@ -282,7 +292,7 @@ namespace WebService.Areas.HelpPage
                     //     public int Y { get; set; }
                     // }
                     // Class Point is bindable with a TypeConverter, so Point will be added to UriParameters collection.
-                    // 
+                    //
                     // public class Point
                     // {
                     //     public int X { get; set; }

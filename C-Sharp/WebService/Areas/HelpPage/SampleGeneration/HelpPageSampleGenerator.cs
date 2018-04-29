@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,6 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using System.Xml.Linq;
-using Newtonsoft.Json;
 
 namespace WebService.Areas.HelpPage
 {
@@ -66,6 +66,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
         /// <returns>The samples keyed by media type.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "api")]
         public IDictionary<MediaTypeHeaderValue, object> GetSampleRequests(ApiDescription api)
         {
             return GetSample(api, SampleDirection.Request);
@@ -76,6 +77,7 @@ namespace WebService.Areas.HelpPage
         /// </summary>
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
         /// <returns>The samples keyed by media type.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "api")]
         public IDictionary<MediaTypeHeaderValue, object> GetSampleResponses(ApiDescription api)
         {
             return GetSample(api, SampleDirection.Response);
@@ -87,6 +89,7 @@ namespace WebService.Areas.HelpPage
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
         /// <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
         /// <returns>The samples keyed by media type.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "api")]
         public virtual IDictionary<MediaTypeHeaderValue, object> GetSample(ApiDescription api, SampleDirection sampleDirection)
         {
             if (api == null)
@@ -166,7 +169,7 @@ namespace WebService.Areas.HelpPage
         }
 
         /// <summary>
-        /// Gets the sample object that will be serialized by the formatters. 
+        /// Gets the sample object that will be serialized by the formatters.
         /// First, it will look at the <see cref="SampleObjects"/>. If no sample object is found, it will try to create
         /// one using <see cref="DefaultSampleObjectFactory"/> (which wraps an <see cref="ObjectGenerator"/>) and other
         /// factories in <see cref="SampleObjectFactories"/>.
@@ -208,10 +211,12 @@ namespace WebService.Areas.HelpPage
         }
 
         /// <summary>
-        /// Resolves the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
+        /// Resolves the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="HttpRequestMessage"/> in an action.
         /// </summary>
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
         /// <returns>The type.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "api")]
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public virtual Type ResolveHttpRequestMessageType(ApiDescription api)
         {
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
@@ -230,6 +235,7 @@ namespace WebService.Areas.HelpPage
         /// <param name="parameterNames">The parameter names.</param>
         /// <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
         /// <param name="formatters">The formatters.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "api")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "This is only used in advanced scenarios.")]
         public virtual Type ResolveType(ApiDescription api, string controllerName, string actionName, IEnumerable<string> parameterNames, SampleDirection sampleDirection, out Collection<MediaTypeFormatter> formatters)
         {
@@ -265,6 +271,7 @@ namespace WebService.Areas.HelpPage
                         type = requestBodyParameter == null ? null : requestBodyParameter.ParameterDescriptor.ParameterType;
                         formatters = api.SupportedRequestBodyFormatters;
                         break;
+
                     case SampleDirection.Response:
                     default:
                         type = api.ResponseDescription.ResponseType ?? api.ResponseDescription.DeclaredType;
@@ -284,6 +291,7 @@ namespace WebService.Areas.HelpPage
         /// <param name="type">The type.</param>
         /// <param name="mediaType">Type of the media.</param>
         /// <returns></returns>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "2")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as InvalidSample.")]
         public virtual object WriteSampleObjectUsingFormatter(MediaTypeFormatter formatter, object value, Type type, MediaTypeHeaderValue mediaType)
         {
@@ -408,6 +416,7 @@ namespace WebService.Areas.HelpPage
             {
                 case SampleDirection.Request:
                     return formatter.CanReadType(type);
+
                 case SampleDirection.Response:
                     return formatter.CanWriteType(type);
             }
